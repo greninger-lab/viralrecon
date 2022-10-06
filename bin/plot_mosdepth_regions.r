@@ -85,11 +85,12 @@ write.table(dat, file=outfile, col.names=TRUE, row.names=FALSE, sep='\t', quote=
 ################################################
 ################################################
 
+# Modify to plot coverage in regular scale instead of log10
 for (sample in unique(dat$sample)) {
     sample_dat <- dat[dat$sample == sample,]
     outfile <- paste(OUTDIR,sample,".",OUTSUFFIX,".coverage.tsv", sep='')
     write.table(sample_dat,file=outfile, col.names=TRUE, row.names=FALSE, sep='\t', quote=FALSE)
-    sample_dat$coverage <- sample_dat$coverage + 1
+    #sample_dat$coverage <- sample_dat$coverage + 1
 
     if (ncol(sample_dat) == 6) {
         plot <- ggplot(sample_dat,aes(x=region,y=coverage)) +
@@ -102,12 +103,13 @@ for (sample in unique(dat$sample)) {
                 coord_flip() +
                 scale_x_discrete(expand=c(0, 0)) +
                 scale_y_continuous(
-                    trans=log10_trans(),
-                    breaks=10^c(0:10),
-                    labels=trans_format('log10', math_format(10^.x)),
-                    expand=c(0, 0)) +
+                    #trans=log10_trans(),
+                    #breaks=10^c(0:10),
+                    #labels=trans_format('log10', math_format(10^.x)),
+                    #expand=c(0, 0)
+		) +
                 expand_limits(y=1) +
-                ylab(bquote('log'[10]~'(Coverage+1)')) +
+                ylab(bquote('Coverage')) +
                 xlab('Amplicon') +
                 ggtitle(paste(sample,'median coverage per amplicon'))
 
@@ -119,12 +121,13 @@ for (sample in unique(dat$sample)) {
                 theme_bw() +
                 scale_x_continuous(expand=c(0, 0)) +
                 scale_y_continuous(
-                    trans=log10_trans(),
-                    breaks=10^c(0:10),
-                    labels=trans_format('log10', math_format(10^.x)),
-                    expand=c(0, 0)) +
+                    #trans=log10_trans(),
+                    #breaks=10^c(0:10),
+                    #labels=trans_format('log10', math_format(10^.x)),
+                    #expand=c(0, 0)
+		) +
                 expand_limits(y=1) +
-                ylab(bquote('log'[10]~'(Coverage+1)')) +
+                ylab(bquote('Coverage')) +
                 xlab('Position (bp)') +
                 ggtitle(paste(sample,'coverage'))
 
