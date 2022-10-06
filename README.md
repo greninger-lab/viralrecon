@@ -25,34 +25,34 @@ This is the Greninger Lab fork of the **nf-core/viralrecon** pipeline. Visit the
 ## Usage
 1. Install [`Nextflow`](https://www.nextflow.io/docs/latest/getstarted.html#installation) (`>=21.10.3`)
 
-2. Install any of [`Docker`](https://docs.docker.com/engine/installation/)
+2. Install [`Docker`](https://docs.docker.com/engine/installation/)
 
-3. Download the pipeline and test it on a minimal dataset with a single command:
+3. Run the pipeline
 
-   ```console
-   nextflow run greninger-lab/viralrecon -latest -profile test,docker --outdir <OUTDIR>
-   ```
+	- Download the repository locally and modify `conf/base.config` to ensure computing resource allocation is appropriate for your usage
 
-4. Running your own analysis
+	- Test it on a minimal dataset:
 
-	- A samplesheet needs to be created first in order to run viralrecon. You can automate samplesheet creation with a bundled python script. Download the repository locally and run:
+   	```console
+   	nextflow run <VIRALRECON_REPO_DIR/main.nf> -profile test,docker --outdir <OUTDIR>
+   	```
+
+	- A samplesheet needs to be created to run your own analysis. You can automate samplesheet creation with a bundled python script:
 
 	```console
 	python <VIRALRECON_REPO_DIR/bin/fastq_dir_to_samplesheet.py> <FASTQ_DIR> viralrecon_samplesheet.csv
 	```
-
-	- Modify the `conf/base.config` to make sure computing resource allocation is appropriate for your usage
 
 	- Example command for Illumina shotgun sequencing QC:
 
 	```bash
 	nextflow run <VIRALRECON_REPO_DIR/main.nf> \
 		--input viralrecon_samplesheet.csv \
-		--outdir <VIRALRECON_OUTDIR> \
+		--outdir <OUTDIR> \
 		--platform illumina \
 		--protocol metagenomic \
-		--fasta <REFERENCE_FASTA_PATH> \
-		--trim_len 120 \
+		--fasta <REFERENCE_FASTA> \
+		--trim_len 75 \
 		--skip_markduplicates false \
 		--filter_duplicates true \
 		--skip_nextclade \
@@ -68,12 +68,12 @@ This is the Greninger Lab fork of the **nf-core/viralrecon** pipeline. Visit the
 	```bash
 	nextflow run <VIRALRECON_REPO_DIR/main.nf> \
 		--input viralrecon_samplesheet.csv \
-		--outdir <VIRALRECON_OUTDIR> \
+		--outdir <OUTDIR> \
 		--platform illumina \
 		--protocol amplicon \
-		--fasta <REFERENCE_FASTA_PATH> \
-		--primer_bed <AMPLICON_PRIMER_BED_FILE_PATH> \
-		--trim_len 120 \
+		--fasta <REFERENCE_FASTA> \
+		--primer_bed <AMPLICON_PRIMER_BED_FILE> \
+		--trim_len 75 \
 		--skip_nextclade \
 		--skip_pangolin \
 		--skip_assembly \
