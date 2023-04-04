@@ -10,7 +10,9 @@
             "type": "object",
             "fa_icon": "fas fa-terminal",
             "description": "Define where the pipeline should find input data and save output data.",
-            "required": ["outdir"],
+            "required": [
+                "outdir"
+            ],
             "properties": {
                 "input": {
                     "type": "string",
@@ -26,13 +28,19 @@
                     "type": "string",
                     "fa_icon": "fas fa-hdd",
                     "description": "NGS platform used to sequence the samples.",
-                    "enum": ["illumina", "nanopore"]
+                    "enum": [
+                        "illumina",
+                        "nanopore"
+                    ]
                 },
                 "protocol": {
                     "type": "string",
                     "description": "Specifies the type of protocol used for sequencing.",
                     "fa_icon": "fas fa-vials",
-                    "enum": ["metagenomic", "amplicon"]
+                    "enum": [
+                        "metagenomic",
+                        "amplicon"
+                    ]
                 },
                 "outdir": {
                     "type": "string",
@@ -180,14 +188,20 @@
                     "default": "nanopolish",
                     "description": "Variant caller used when running artic minion (default: 'nanopolish').",
                     "fa_icon": "fas fa-phone-volume",
-                    "enum": ["nanopolish", "medaka"]
+                    "enum": [
+                        "nanopolish",
+                        "medaka"
+                    ]
                 },
                 "artic_minion_aligner": {
                     "type": "string",
                     "default": "minimap2",
                     "description": "Aligner used when running artic minion (default: 'minimap2').",
                     "fa_icon": "fas fa-map-signs",
-                    "enum": ["minimap2", "bwa"]
+                    "enum": [
+                        "minimap2",
+                        "bwa"
+                    ]
                 },
                 "artic_scheme": {
                     "type": "string",
@@ -341,6 +355,14 @@
                     "fa_icon": "fab fa-gitkraken",
                     "description": "Remove host reads identified by Kraken2 before running aseembly steps in the pipeline."
                 },
+                "save_kraken2_classified_reads": {
+                    "type": "boolean",
+                    "description": "Save reads that mapped to Kraken2 database"
+                },
+                "save_kraken2_unclassified_reads": {
+                    "type": "boolean",
+                    "description": "Save reads that are not mapped to Kraken2 database"
+                },
                 "save_trimmed_fail": {
                     "type": "boolean",
                     "fa_icon": "fas fa-save",
@@ -362,6 +384,12 @@
                     "fa_icon": "fas fa-fast-forward",
                     "description": "Skip the initial read trimming step peformed by fastp."
                 },
+                "trim_len": {
+                    "type": "integer",
+                    "default": 50,
+                    "description": "The minimum read length to retain during the initial read trimming step performed by fastp",
+                    "fa_icon": "fas fa-hand-paper"
+                },
                 "skip_cutadapt": {
                     "type": "boolean",
                     "description": "Skip the amplicon trimming step with Cutadapt when using --protocol amplicon.",
@@ -380,14 +408,20 @@
                     "type": "string",
                     "fa_icon": "fas fa-phone-volume",
                     "description": "Specify which variant calling algorithm you would like to use. Available options are 'ivar' (default for '--protocol amplicon') and 'bcftools' (default for '--protocol metagenomic').",
-                    "enum": ["ivar", "bcftools"]
+                    "enum": [
+                        "ivar",
+                        "bcftools"
+                    ]
                 },
                 "consensus_caller": {
                     "type": "string",
                     "default": "bcftools",
                     "fa_icon": "fas fa-phone-volume",
                     "description": "Specify which consensus calling algorithm you would like to use. Available options are 'bcftools' and 'ivar' (default: 'bcftools').",
-                    "enum": ["ivar", "bcftools"]
+                    "enum": [
+                        "ivar",
+                        "bcftools"
+                    ]
                 },
                 "min_mapped_reads": {
                     "type": "integer",
@@ -553,7 +587,14 @@
                     "description": "Method used to save pipeline results to output directory.",
                     "help_text": "The Nextflow `publishDir` option specifies which intermediate files should be saved to the output directory. This option tells the pipeline what method should be used to move these files. See [Nextflow docs](https://www.nextflow.io/docs/latest/process.html#publishdir) for details.",
                     "fa_icon": "fas fa-copy",
-                    "enum": ["symlink", "rellink", "link", "copy", "copyNoFollow", "move"],
+                    "enum": [
+                        "symlink",
+                        "rellink",
+                        "link",
+                        "copy",
+                        "copyNoFollow",
+                        "move"
+                    ],
                     "hidden": true
                 },
                 "email_on_fail": {
